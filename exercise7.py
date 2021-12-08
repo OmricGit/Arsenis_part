@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for
 
 app = Flask(__name__)
 
@@ -12,11 +12,14 @@ def about_func():
     # TODO
     # Do Something With dB
     print('I am in About')
-    # return redirect(url_for('catalog_func'))
+     return redirect(url_for('catalog_func'))
     return 'Welcome to About!'
 @app.route('/catalog')
 def catalog_func():
-    return 'Welome to catalouge page'
+    return 'Welome to catalog page'
+@app.route('/home')
+def home_func():
+    return 'Home Sweet Home'
 
 if __name__ == '__main__':
     app.run(debug=True)
