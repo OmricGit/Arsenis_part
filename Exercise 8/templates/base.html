@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%  block title %} base {% endblock %}</title>
+    <link rel="stylesheet" href="/static/cv.css">
+    <script src="/static/cv.js"></script>
+</head>
+<body>
+    {% include 'Header.html' %}
+
+    {% block tohen %}
+
+    {% endblock %}
+
+    {% include 'Footer.html' %}
+</body>
+</html>

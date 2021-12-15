@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}assignment8{% endblock %}
+{% block tohen %}
+    {{ super() }}
+
+<h1>Welcome to About page</h1>
+<h2>Profile Details:</h2>
+<ul>
+    {% for key in profile %}
+    <li> {{ key }}: {{ profile[key] }}</li>
+    {% endfor %}
+</ul>
+<h2>Degrees:</h2>
+<ol>
+     {% for key in degrees %}
+    <li> {{ key }}</li>
+    {% endfor %}
+{#    <li>{{ degrees[0] }}</li>#}
+</ol>
+<h2>Hobbies:</h2>
+<ol>
+    <li>{{ Hobbies[0] }}</li>
+    <li>{{ Hobbies[1] }}
+    <li>{{ Hobbies[2] }}</li>
+
+
+</ol>
+<h3>About me..</h3>
+<ul>
+    <li>University: {{ uni }}</li>
+    <li>item 2</li>
+    <li>item 3</li>
+</ul>
+
+{% endblock %}
