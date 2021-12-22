@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Assigment9{% endblock %}
+
+{% block tohen %}
+
+    <h3> Here's a users search for your convenience</h3>
+    {% if username %}
+        <form action="/Assignment9" method="GET"> {# not secured (route in url), receive data#}
+            Search user: <input name="search_user" type="text" placeholder="Search">
+
+        <input type="submit">
+        </form>
+        {% if search_user=="" %}
+            <span>
+                    {% for y in users.values() %}
+                        {% for x in y %}
+                            <h3>{{ x }}: {{ y[x]}}</h3>
+                        {% endfor %} <br>
+                    {% endfor %}
+            </span>
+        {% else %}
+            {% for y in users.values() %}
+                {% for x in y %}
+                    {% if search_user==y[x] %}
+                        {% for i in y %}
+                            <h3>{{ i }}: {{ y[i]}}</h3>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        <h3>Hey, Please log in</h3>
+        <form action="/Assignment9" method="POST"> {# secured way, send data#}
+            Username: <input name="username" type="text" placeholder="enter your Email address">
+            Password:<input name="password" type="password" placeholder="enter your password">
+            Repeat Password:<input name="password2" type="password2" placeholder="Re enter your password">
+        <input type="submit">
+
+        </form>
+    {% endif %}
+{% endblock %}

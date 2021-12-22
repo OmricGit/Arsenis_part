@@ -1,0 +1,26 @@
+
+{% extends 'base.html' %}
+{% block title %}assignment8{% endblock %}
+{% block tohen %}
+    {{ super() }}
+<h1> Catalog page</h1>
+
+<h2 class="{%  if color == 'green' %}green{% else %}yellow{% endif %}"> Want to find:</h2>
+<form method="GET" action="/catalog">
+    Type: <input name="product_type" type="text">
+    <br>
+    <br>
+    Size: <input name="size" type="text">
+    <br>
+    <br>
+    <input type="submit">
+    </form>
+
+{#{% if p_type %}#}
+{#    <h2> <prod></prod>uct from search </h2>#}
+{#Product: {{ p_type }}#}
+{#Size: {{ p_size }}#}
+{#{% endif %}#}
+
+{% endblock %}
+

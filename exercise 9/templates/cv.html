@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block tohen %}
+    {{ super() }}
+
+    <div class="grid-container">
+  <div class="header">
+    About Me<br>
+  </div>
+
+  <div class="Education">Education<Br><Br>
+    Explain my education <br></br>
+</div>
+
+  <div class="Army"> Military Service<br><br>
+    information about my military service </div>
+
+  <div class="Employment">Employment<br><Br>
+    My Work Experience </div>
+
+  <div class="Skills">Skills<br><Br>
+    List of my skills </div>
+
+  <div class="Languages">Languages<br><Br>
+  Hebrew, English e un poco espanol </div>
+
+  <div class="Volunteering"> Volunteering  <br><br>
+    my volunteering/ counseling details </div>
+
+        <div id="linkedin">
+            <h3> Link to my Linkedin !</h3>
+            <a href="https://www.linkedin.com/in/omri-canaan/" id="linkedin"> My linkedin page</a>
+        </div>
+
+  <div class="Contact">
+    <p class="line anim-typewriter"> Contact Me </p>
+
+
+  <div class="contact-form">
+    <form id="contact-form" method="post" action="">
+      <input name="name" type="text" class="form-style" placeholder="Enter Your Name" required><br>
+      <input name="Email" type="email" class="form-style" placeholder="Enter Your Email" required><br>
+      <textarea name="Message" class="form-style" placeholder="Enter Your Message" rows="4" required></textarea><br>
+      <input type="submit" class="form-style submit" onclick="Namevalidation()" value="SEND">
+
+    </form>
+  </div>
+  </div>
+</div>
+<div>
+    <button id= "Button" onclick= "thankyou()"> All Rights Reserved - Omri Canaan</button>
+</div>
+{% endblock %}

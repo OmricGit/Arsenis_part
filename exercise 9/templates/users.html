@@ -1,0 +1,27 @@
+{#{% extends 'base.html' %}#}
+{#{% block title %}#}
+{#users#}
+{#{% endblock %}#}
+{##}
+{#{% block tohen %}#}
+{#<h1>Users Page</h1>#}
+{#<h3> Insert new user</h3>#}
+{#<form action="/user_insert" method ="post" >#}
+{#        <input type="text" name="name" placeholder="Name">#}
+{#        <input type="email" name="email" placeholder="email">#}
+{#        <input type="password" name="password" placeholder="password">#}
+{#        <input type="submit" name="submit" value="Insert">#}
+{##}
+{#</form>#}
+{#<h3> Users List:</h3>#}
+{#<ul>#}
+{#    {% for user in users %}#}
+{#        <li>#}
+{#        <form action="/delete_user" method="post" style="display: inline">#}
+{#            <input type="hidden" name="id" value="{{ user.id }}">#}
+{#            <input type="submit" value="Delete">#}
+{#        </form>#}
+{#            {{ user.name }}, Email: {{ user.email }}</li>#}
+{#    {% endfor %}#}
+{#</ul>#}
+{#{% endblock %}#}
