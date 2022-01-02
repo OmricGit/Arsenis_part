@@ -1,0 +1,275 @@
+@keyframes mobile {
+    from {background-color:var(--likeBeige) ;}
+    to {background-color: var(--tchelet);}
+    }
+
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    text-align: center;
+
+  }
+
+  body {
+
+   font-family: sans-serif;
+   place-items:center ;
+  }
+  button{
+    height: 100%;
+    font-size: 20px;
+    background-color: rgb(255, 255, 255);
+    animation-name: blink ;
+    animation-duration: 5s;
+    animation-iteration-count: 3;
+}
+  :root {
+    --blues: #4729ee82;
+    --blackish: #1b1b18;
+    --greyblack: #282927;
+    --oceangreen: #0ddb97;
+    --tchelet: #0db8d6;
+    --likeBeige: #f8f8da;
+    --eggplant: #cf08ae ;
+}
+
+
+ h1{
+     text-align: center;
+     font-size: 80px;
+     color: var(--greyblack);
+     font-weight: bold;
+  }
+
+
+
+  /* Style the header */
+  .header {
+    grid-area: header;
+    background-color:rgba(110, 135, 139, 0.2);
+    padding: 10px;
+    text-align: center;
+    font-size: 35px;
+    border: solid 2px;
+    font-style:oblique;
+    font-weight: bold;
+
+
+  }
+
+  /* The grid container */
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+      'header header header header header header '
+      'Education Education Army Army Employment Employment'
+      'Skills Skills Languages Languages Volunteering Volunteering'
+      'contact contact contact contact contact contact';
+
+  }
+
+  .Education,
+  .Army,
+  .Employment,
+  .Volunteering,
+  .Skills,
+  .Languages,
+  .Volunteering {
+    padding: 10px;
+    height: 100px;
+    width: 415px;
+    text-align: center;
+    border: solid 2px;
+    font-family: sans-serif;
+    font-size: 20px;
+    background-color:rgba(255, 255,255, 0.2);
+    font-weight: bold;
+  }
+
+
+  img.grid-container {
+    height: 50px;
+    width: 50px;
+  }
+
+    /* define the style of the top left column */
+  .Education {
+    grid-area: Education;
+    place-items:center ;
+
+  }
+
+    /* define the style of the top middle column and so on */
+    .Army {
+    grid-area: Army;
+
+  }
+
+  .Employment {
+    grid-area: Employment;
+
+  }
+
+  .Skills{
+    grid-area: Skills;
+
+  }
+
+  .Languages{
+    grid-area: Languages;
+
+  }
+
+  .Volunteering{
+    grid-area: Volunteering;
+
+  }
+  #linkedin {
+      text-align: center;
+      align-items: center;
+      height: 20vh;
+      width: 25vh;
+
+  }
+
+
+  /* Define the style of the footer */
+  .Contact {
+    grid-area: contact;
+    background-color:var(--likeBeige);
+    padding: 10px;
+    text-align: center;
+    background-size: cover;
+    background-position:center;
+    font-family: sans-serif;
+    border: solid 2px;
+  }
+
+form{
+  margin-top: 50px;
+  transition: all 4s ease-in-out;
+}
+.form-style{
+  width: 500px;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--blackish);
+  color: var(--blackish);
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+input{
+  height: 30px;
+}
+
+form .submit {
+  margin-bottom: 20px;
+  background-color: rgba(255, 255,255, 0.2);
+  font-size: 20px;
+  border-radius: 20px;
+  letter-spacing: 2px;
+  height: 50px;
+  border: solid ;
+}
+
+form .submit:hover{
+  background-color: var(--oceangreen);
+  cursor: pointer;
+  color:black;
+}
+
+::placeholder {
+  color:black;
+  font-family: sans-serif;
+}
+
+.line {
+  position: relative;
+  top: 8%;
+  width: 16em;
+  margin: 0 auto;
+  border-right: 2px solid var(--blackish);
+  font-size: 200%;
+  text-align: center;
+  white-space: normal;
+  overflow: hidden;
+  transform: translateY(-50%);
+  font-family: sans-serif;
+  color:black;
+}
+
+.anim-typewriter {
+  animation: typewriter 4s steps(40) 4s 5 normal both,
+  blinkTextCursor 500ms steps(10)  infinite normal;
+  animation-direction: alternate;
+
+}
+
+@keyframes typewriter {
+  from {
+        width: 0;
+  }
+  to {
+        width: 7em;
+  }}
+
+@keyframes blinkTextCursor {
+  from {
+        border-right-color: rgba(10, 0, 0, 0.75);
+  }
+  to {
+        border-right-color: transparent;
+  }
+}
+
+
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media (max-width: 700px) {
+    .grid-container  {
+      grid-template-areas:
+      'header header header header header header '
+      'Education Education Education Army Army Army'
+      'Employment Employment Employment Skills Skills Skills'
+      ' Languages Languages Languages Volunteering Volunteering Volunteering'
+      'contact contact contact contact contact contact';
+    }
+  }
+
+  @media (max-width: 600px) {
+    .grid-container  {
+      grid-template-areas:
+      'header  '
+      'Education '
+      'Army '
+      'Employment'
+      'Skills'
+      'Languages'
+      'Volunteering'
+      'contact';
+    }
+  }
+  @keyframes blink {
+    0% {background-color:rgb(243, 239, 215); border-radius: 0%;}
+    25% {background-color:var(--oceangreen); border-radius: 50%;}
+    50% {background-color: var(--blues);border-radius: 75%;}
+    75% {background-color: var(--tchelet);border-radius: 100%;}
+   100% {background-color: var(--eggplant);border-radius: 50%;}
+}
+
+  @media only screen and (max-width: 700px)
+  {
+     body {
+         font-family: Arial, Helvetica, sans-serif;
+         font-size: 10px;
+        background-color: var(--eggplant);
+        font-family: sans-serif;
+       }
+       .header{
+        animation-name: example2;
+        animation-duration: 4s;
+          width: 100%;
+          background: var(--oceangreen); }
+
+  }

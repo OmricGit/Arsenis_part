@@ -1,12 +1,24 @@
-from flask import Flask, redirect, url_for
-from flask import render_template
-from flask import session
-from flask import request
+#import asyncio
+
+from flask import Flask, render_template, session, request, redirect, Blueprint
+import mysql
+import mysql.connector
 # from interact_with_Db import interact_db
 
 app = Flask(__name__)
-app.secret_key = '1234'
+app.secret_key = '123'
 
+from Assignment10.Assignment10 import Assignment10
+app.register_blueprint(Assignment10)
+
+
+Assignment10 = Blueprint(
+    'Assignment10',
+    __name__,
+    static_folder='static',
+    static_url_path='/Assignment10',
+    template_folder='templates'
+)
 
 users = {"user1": {"First Name": "Omri","Last Name": "Canaan", "Email": "Omricanaan1@gmail.com", "Username": "Omric"},
          "user2": {"First Name": "Avi", "Last Name": "Nimni", "Email": "leolam8@gmail.com" , "Username": "Macabi"},
@@ -105,6 +117,101 @@ def Assignment_func():
                            degrees=['BSc', 'MSc', 'Phd'],
                            hobbies=('Programming', 'football', 'sql','hiking'),
                            FootballTeams =FootballTeams )
+@app.route('/req_frontend')
+def front_func():
+    return render_template('req_frontend')
+
+# def main_2():
+#     asyncio.run(async_gather())
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+    Assignment10 = Blueprint(
+        'Assignment10',
+        __name__,
+        static_folder='static',
+        static_url_path='../Assignment10',
+        template_folder='templates'
+    )
+
+
+    def interact_db(query, query_type: str):
+        return_value = False
+        connection = mysql.connector.connect(host='localhost',
+                                             user='root',
+                                             password='root',
+                                             database='myflaskproject')
+        cursor = connection.cursor(named_tuple=True)
+        cursor.execute(query)
+
+        if query_type == 'commit':
+            connection.commit()
+            return_value = True
+        if query_type == 'fetch':
+            query_result = cursor.fetchall()
+            return_value = query_result
+
+        connection.close()
+        cursor.close()
+        return return_value
+
+
+    @Assignment10.route('/Assignment10')
+    def users():
+        usersTable = interact_db(query="select * from myflaskproject.users", query_type='fetch')
+        if session.get('messages'):
+            x = session['messages']
+            session.pop('messages')
+            return render_template('Assignment10.html', users=usersTable, messages=x)
+        else:
+            return render_template('Assignment10.html', users=usersTable)
+
+
+    @Assignment10.route('/insert', methods=['GET', 'POST'])
+    def insert():
+        if request.method == 'POST':
+            username = request.form['username']
+            firstname = request.form['firstname']
+            lastname = request.form['lastname']
+            Email = request.form['Email']
+            check_Email = "SELECT Email FROM myflaskproject.users WHERE Email='%s';" % Email
+            answer = interact_db(query=check_Email, query_type='fetch')
+            if len(answer) == 0:
+                interact_db(query="insert into myflaskproject.users(username, firstname ,lastname, Email)\
+                                         value ('%s', '%s', '%s','%s');" % (username, firstname, lastname, Email),
+                            query_type='commit')
+                session['messages'] = 'User has been added successfully'
+                return redirect('/Assignment10')
+            else:
+                session['messages'] = 'Email address already exists, please enter new one'
+                return redirect('/Assignment10')
+        return render_template('Assignment10.html', req_method=request.method)
+
+
+    @Assignment10.route('/update', methods=['GET', 'POST'])
+    def update():
+        user = request.form['username']
+        FN = request.form['firstname']
+        LN = request.form['lastname']
+        E = request.form['Email']
+        interact_db(
+            query=" UPDATE myflaskproject.users SET username='%s',firstname='%s' ,lastname='%s' WHERE Email='%s';" % \
+                  (user, FN, LN, E), query_type='commit')
+        session['messages'] = 'User has been added successfully'
+        return redirect('/Assignment10')
+
+
+    @Assignment10.route('/delete', methods=['POST'])
+    def deleteUsers():
+        userEmail = request.form['Email']
+        check = "SELECT username FROM myflaskproject.users WHERE Email='%s';" % userEmail
+        answer = interact_db(query=check, query_type='fetch')
+        if len(answer) > 0:
+            query = "delete from myflaskproject.users where Email='%s';" % userEmail
+            interact_db(query=query, query_type='commit')
+            session['messages'] = 'User has been deleted from DataBase'
+            return redirect('/Assignment10')
+        else:
+            session['messages'] = 'Email address doesnt exists in DataBase'
+            return redirect('/Assignment10')

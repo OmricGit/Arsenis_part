@@ -17,9 +17,9 @@ def interact_db(query, query_type: str):
 
     if query_type == 'fetch':
         query_result = cursor.fetchall()
-        reeturn_value = query_result
+        return_value = query_result
 
     connection.close()
     cursor.close()
-    return reeturn_value
+    return return_value
 

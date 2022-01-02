@@ -1,9 +1,11 @@
 
 <header>
-    <a href="/">Home</a> | <a href="/about">About</a> | <a href="/catalog">Catalog</a> |<a href="/users">users</a> | <a href="/Assignment8">Assignment8</a>| <a href='/Assignment9'>Assignment9</a>
+    <a href="/">Home</a>  <a href="/Assignment10">Assignment10</a> |<a href="/users">users</a> | <a href="/Assignment8">Assignment8</a>| <a href='/Assignment9'>Assignment9</a>
+
+    |<a href="/users">users</a> | <a href='/Assignment9'>Assignment9</a>| <a href="/req_backend">req_backend</a>| <a href="/req_frontend">req_frontend</a>
 
     {% if session['username'] %}
-        <a href="/logout">Also_logout</a> | Hello dear {{ session.username }} {#add logout to header menu#}
+        <a href="/logout">Also_logout</a> | Hello dear {{ session.username }} {#    add logout to header menu#}
         <form name="logout" action="logout" >
             <input type="submit" value="Logout"> {#logout button#}
         </form>
