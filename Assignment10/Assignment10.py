@@ -2,6 +2,8 @@ from flask import Flask, render_template, url_for, session, request, redirect, B
 # import mysql
 import mysql.connector
 import mysql
+import requests
+
 
 app = Flask(__name__)
 app.secret_key = "123"
@@ -94,3 +96,38 @@ def Delete():
     else:
         session['messages'] = 'Email address doesnt exists in DataBase'
         return redirect('/Assignment10')
+
+    @app.route('/Assignment11')
+    def Assignment11_func():  # put application's code here
+        return render_template('Assignment11.html', non="non")
+
+    def get_users(num):
+        res = requests.get(f'https://reqres.in/api/users/{num}')
+        res = res.json()
+        return res
+
+    @app.route('/Assignment11/users')
+    def DB_to_json_func():  # put application's code here
+        return_dict = {}
+        query = "SELECT * FROM myflaskproject.users ;"
+        answer = interact_db(query=query, query_type='fetch')
+        for user in answer:
+            return_dict[f'user_{user.id}'] = {
+                'id': user.username,
+                'name': user.firstname,
+                'email': user.lastname,
+                'password': user.Email
+            }
+        return render_template('Assignment11.html', answer=return_dict, non="non")
+
+    @app.route('/Assignment11/outer_source', methods=['post'])
+    def outer_source_func():
+        if "frontend" in request.form:
+            num = int(request.form['frontend'])
+            return render_template('Assignment11.html', frontend=num)
+        elif "backend" in request.form:
+            num = int(request.form["backend"])
+            user = get_users(num)
+            return render_template('Assignment11.html', backend=user)
+        else:
+            return render_template('Assignment11.html')

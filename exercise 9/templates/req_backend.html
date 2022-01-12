@@ -1,17 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{%  block title %} base {% endblock %}</title>
+{% extends 'base.html' %}
+{% block title %}back hand{% endblock %}
+{% block content %}
+    {{ super() }}
+    <h1>Req Backhand page!</h1>
 
-</head>
-<body>
-    {% include 'Header.html' %}
+    <h2> The Pokemons</h2>
+    <form action="/req_backhand">
+        <input type="number" name="number">
+        <input type="submit" value="get pokemons">
+    </form>
+    {% if pockemons %}
+        {% for pokemon in pokemons %}
+            <h3>pokemon {{ pokemon.id }}:</h3>
+            <img src="{{ pokemon.sprites.front_default }}" alt="pokemon pic">
+            <h3>name {{ pokemon.name }}:</h3>
+            <h3>height {{ pokemon.height }}:</h3>
+            <h3>weight {{ pokemon.weight }}:</h3>
+            <hr><br>
+        {% endfor %}
+    {% endif %}
 
-    {% block tohen %}
+    <script src="../static/js/fetch_example.js"></script>
 
-    {% endblock %}
 
-    {% include 'Footer.html' %}
-</body>
-</html>
+
+{% endblock %}

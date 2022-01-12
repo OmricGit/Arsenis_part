@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{%  block title %} base {% endblock %}</title>
+{% extends 'base.html' %}
+{% block title %}front hand{% endblock %}
+{% block content %}
+    {{ super() }}
+        <h1>Welcome to Req Frontend page!</h1>
 
-</head>
-<body>
-    {% include 'Header.html' %}
+        <h2> Get Users list <button onclick="get_users()">Get users</button></h2>
+        <main>
 
-    {% block tohen %}
+        </main>
+    <script src="../static/js/fetch_example.js"></script>
 
-        <h1> Req - Frontend</h1>
-
-    {% endblock %}
-
-    {% include 'Footer.html' %}
-</body>
-</html>
+{% endblock %}

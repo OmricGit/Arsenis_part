@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <title>{%  block title %} base {% endblock %}</title>
     <link rel="stylesheet" href="/static/cv.css">
+    <link rel="stylesheet" href="../static/cv.css">
     <script src="/static/cv.js"></script>
+    <script src="../static/fetch_example.js"></script>
 </head>
 <body>
-    {% include 'Header.html' %}
+    {% include 'header.html' %}
 
-    {% block tohen %}
+    {% block content %}
 
     {% endblock %}
 
-    {% include 'Footer.html' %}
+    {% include 'footer.html' %}
 </body>
 </html>
