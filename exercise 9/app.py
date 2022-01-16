@@ -2,7 +2,8 @@
 import mysql, json
 import mysql.connector
 import requests
-from flask import Flask, render_template, session, request, redirect, Blueprint
+from flask import Flask, render_template, session, request, redirect, Blueprint, jsonify
+from flask import jsonify
 
 # import random
 from interact_with_Db import interact_db
@@ -177,25 +178,25 @@ def users():
         return render_template('Assignment10.html', users=usersTable)
 
 
-@Assignment10.route('/insert', methods=['GET', 'POST'])
-def insert():
-    if request.method == 'POST':
-        username = request.form['username']
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-        Email = request.form['Email']
-        check_Email = "SELECT Email FROM myflaskproject.users WHERE Email='%s';" % Email
-        answer = interact_db(query=check_Email, query_type='fetch')
-        if len(answer) == 0:
-            interact_db(query="insert into myflaskproject.users(username, firstname ,lastname, Email)\
-                                     value ('%s', '%s', '%s','%s');" % (username, firstname, lastname, Email),
-                        query_type='commit')
-            session['messages'] = 'User has been added successfully'
-            return redirect('/Assignment10')
-        else:
-            session['messages'] = 'Email address already exists, please enter new one'
-            return redirect('/Assignment10')
-    return render_template('Assignment10.html', req_method=request.method)
+# @Assignment10.route('/insert', methods=['GET', 'POST'])
+# def insert():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         firstname = request.form['firstname']
+#         lastname = request.form['lastname']
+#         Email = request.form['Email']
+#         check_Email = "SELECT Email FROM myflaskproject.users WHERE Email='%s';" % email
+#         answer = interact_db(query=check_Email, query_type='fetch')
+#         if len(answer) == 0:
+#             interact_db(query="insert into myflaskproject.users(username, firstname ,lastname, Email)\
+#                                      value ('%s', '%s', '%s','%s');" % (username, firstname, lastname, email),
+#                         query_type='commit')
+#             session['messages'] = 'User has been added successfully'
+#             return redirect('/Assignment10')
+#         else:
+#             session['messages'] = 'Email address already exists, please enter new one'
+#             return redirect('/Assignment10')
+#     return render_template('Assignment10.html', req_method=request.method)
 
 
 @Assignment10.route('/update', methods=['GET', 'POST'])
@@ -203,9 +204,9 @@ def update():
     user = request.form['username']
     FN = request.form['firstname']
     LN = request.form['lastname']
-    E = request.form['Email']
+    E = request.form['email']
     interact_db(
-        query=" UPDATE myflaskproject.users SET username='%s',firstname='%s' ,lastname='%s' WHERE Email='%s';" % \
+        query=" UPDATE myflaskproject.users SET username='%s',firstname='%s' ,lastname='%s' WHERE email='%s';" % \
               (user, FN, LN, E), query_type='commit')
     session['messages'] = 'User has been added successfully'
     return redirect('/Assignment10')
@@ -261,3 +262,25 @@ def outer_source_func():
     else:
         return render_template('assignment11.html')
 
+
+
+@app.route('/assignment12/restapi_users', defaults={'user_id': 1})
+@app.route('/assignment12/restapi_users/<int:user_id>')
+def get_users_json_func(user_id):
+    query = 'SELECT * FROM myflaskproject.users where id=%s;' % user_id
+    users = interact_db(query=query, query_type='fetch')
+    if len(users) == 0:
+        return_dict = {
+            'status': 'failed',
+            'message': 'user not found'
+        }
+    else:
+        return_dict = {
+            'status': 'success',
+            f'id': users[0].id,
+            'username': users[0].username,
+            'firstname': users[0].firstname,
+            'lastname': users[0].lastname,
+            'email': users[0].email,
+        }
+    return jsonify(return_dict)
